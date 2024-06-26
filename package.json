@@ -1,0 +1,37 @@
+{
+  "name": "fileshare-hub",
+  "version": "1.0.0",
+  "description": "A seamless file sharing platform built with Node.js, Express, MongoDB, Multer, EJS, and Tailwind CSS. Users can upload files up to 100MB, receive a unique download link, and share it with friends or colleagues for easy access and download.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alok-x0s1/FileShare-Hub.git"
+  },
+  "keywords": [
+    "nodeJS",
+    "expressJs",
+    "mongoDB",
+    "ejs",
+    "mongoose",
+    "multer"
+  ],
+  "author": "Alok Yadav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alok-x0s1/FileShare-Hub/issues"
+  },
+  "homepage": "https://github.com/alok-x0s1/FileShare-Hub#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.4",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
