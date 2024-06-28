@@ -3,7 +3,7 @@ const {
 	uploadFile,
 	downloadFilePage,
     downloadFile,
-} = require("../middleware/file.middleware");
+} = require("../controller/file.controller");
 const upload = require("../middleware/multer.middleware");
 const router = express.Router();
 
