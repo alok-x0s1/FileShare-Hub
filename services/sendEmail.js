@@ -6,8 +6,8 @@ const sendMail = async ({ from, to, subject, text, html }) => {
 		port: process.env.SMTP_PORT,
 		secure: false,
 		auth: {
-			user: "your-email@gmail.com",
-			pass: "your-email-password",
+			user: process.env.NODEMAILER_EMAIL,
+			pass: process.env.NODEMAILER_PASSWORD,
 		},
 	});
 
@@ -19,14 +19,5 @@ const sendMail = async ({ from, to, subject, text, html }) => {
 		html,
 	});
 };
-
-// Send mail with the defined transport object
-// transporter.sendMail(mailOptions, (error, info) => {
-// 	if (error) {
-// 		return console.log(error);
-// 	}
-// 	console.log("Message sent: %s", info.messageId);
-// 	console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-// });
 
 module.exports = sendMail;
