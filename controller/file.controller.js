@@ -1,6 +1,8 @@
 const { v4: uuid4 } = require("uuid");
 const File = require("../models/file.model");
 const path = require("path");
+const sendMail = require("../services/sendEmail");
+const emailTemplet = require("../services/emailTemplet");
 
 const uploadFile = async (req, res) => {
 	if (!req.file) {
@@ -75,8 +77,40 @@ const downloadFile = async (req, res) => {
 	}
 };
 
+const sendEmail = async (req, res) => {
+	const { uuid, emailTo, emailFrom } = req.body;
+	if (!uuid || !emailFrom || !emailTo) {
+		return res.status(422).send({ message: "All fields are required" });
+	}
+
+	const file = await File.findOne({ uuid });
+	if (file.sender) {
+		return res.status(422).send({ message: "Email sent already." });
+	}
+	file.sender = emailFrom;
+	file.receiver = emailTo;
+
+	const response = await file.save();
+
+	sendMail({
+		from: emailFrom,
+		to: emailTo,
+		subject: "FileShare-hub",
+		text: `${emailFrom} share a file with you.`,
+		html: emailTemplet({
+			emailFrom: emailFrom,
+			downloadLink: `${process.env.APP_BASE_URL}/api/files/download/${response.uuid}`,
+			fileSize: (file.filesize / (1024 * 1024)).toFixed(2),
+			expiresIn: "24h",
+		}),
+	});
+
+	return res.send({ message: "Email sent.", success: true });
+};
+
 module.exports = {
 	uploadFile,
 	downloadFilePage,
 	downloadFile,
+	sendEmail,
 };
